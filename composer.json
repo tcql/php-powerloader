@@ -1,0 +1,20 @@
+{
+    "name": "tcql/powerloader",
+    "description": "",
+    "authors": [
+        {
+            "name": "Tim Channell",
+            "email": "tim.channell@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Tcql\\Powerloader": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
