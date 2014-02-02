@@ -12,8 +12,8 @@
         "illuminate/support": "4.1.*"
     },
     "autoload": {
-        "psr-0": {
-            "Tcql\\Powerloader": "src/"
+        "psr-4": {
+            "Tcql\\Powerloader\\": "src/"
         }
     },
     "minimum-stability": "stable"
