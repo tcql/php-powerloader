@@ -1,6 +1,7 @@
 <?php namespace Tcql\Powerloader;
 
 use Tcql\Powerloader\Loaders\LoaderInterface;
+use InvalidArgumentException;
 
 class LoaderManager
 {
@@ -16,11 +17,36 @@ class LoaderManager
 	 */
 	public function registerWith($name, array $classmap)
 	{
+		$registrar = $this->getRegistrar($name);
+
+		$this->registrars[$name]->registerClasses($classmap);
+	}
+
+
+	/**
+	 * Returns all registrars
+	 * 
+	 * @return array
+	 */
+	public function getRegistrars()
+	{
+		return $this->registrars;
+	}
+
+
+	/**
+	 * Returns registrar matching $name 
+	 * 
+	 * @param  string $name
+	 * @return LoaderInterface
+	 */
+	public function getRegistrar($name)
+	{
 		if (isset($this->registrars[$name])) {
-
-			$this->registrars[$name]->registerClasses($classmap);
-
+			return $this->registrars[$name];
 		}
+
+		throw new InvalidArgumentException("Powerloader: Registrar {$name} does not exist");
 	}
 
 
@@ -28,9 +54,9 @@ class LoaderManager
 	 * Add a custom registrar class. Can be used to override an existing
 	 * registrar as well.
 	 * 
-	 * @param  [type]          $name   [description]
+	 * @param  string          $name   [description]
 	 * @param  LoaderInterface $loader [description]
-	 * @return [type]                  [description]
+	 * @return void
 	 */
 	public function extend($name, LoaderInterface $loader)
 	{
@@ -44,7 +70,7 @@ class LoaderManager
 		if (starts_with($method, "register")) {
 			$registrar = str_replace("register", "", $method);
 
-			$this->registerWith(strtolower($registrar), $args[0]);
+			$this->registerWith($registrar, $args[0]);
 
 		}
 	}

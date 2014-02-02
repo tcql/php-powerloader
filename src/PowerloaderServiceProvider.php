@@ -24,9 +24,9 @@ class PowerloaderServiceProvider extends ServiceProvider {
 		$this->app["powerloader"] = $this->app->share(function ($app) {
 
 			$manager = new LoaderManager;
-			$manager->extend("psr0", new L\PSR0Loader);
-			$manager->extend("psr4", new L\PSR4Loader);
-			$manager->extend("plain", new L\PlainClassLoader);
+			$manager->extend("Psr0", new L\PSR0Loader);
+			$manager->extend("Psr4", new L\PSR4Loader);
+			$manager->extend("Plain", new L\PlainClassLoader);
 
 
 			return $manager;
